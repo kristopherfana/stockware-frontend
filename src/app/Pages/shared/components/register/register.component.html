@@ -1,0 +1,115 @@
+<div class="w-4/5 text-center mx-auto flex flex-col">
+  <img
+    src="assets/stock_ware_logo.png"
+    class="w-auto h-10 mb-5 object-scale-down"
+    alt=""
+  />
+  <h3 class="text-3xl font-medium leading-none">
+    @if(this.edit){ Edit your details } @else { Create a new account }
+  </h3>
+  <p class="text-base text-center">
+    @if(this.edit){ Enter your details to edit } @else { Enter the details to
+    register }
+  </p>
+</div>
+<div
+  class="w-full text-center bg-red-50 text-lg text-red-800 px-4 py-3 rounded-sm relative mt-4"
+  role="alert"
+  *ngIf="showAuthEror"
+>
+  <p class="text-base font-medium">{{ showAuthEror.error }}</p>
+  <span class="block text-sm">{{ showAuthEror.message }} </span>
+</div>
+@if(this.edit){
+<form
+  [formGroup]="editUserForm"
+  (ngSubmit)="onSubmitEdit()"
+  class="flex flex-col w-full py-5 space-y-4"
+>
+  <app-input
+    placeholder="First Name"
+    formControlNameCust="firstName"
+    [formGroupCust]="editUserForm"
+  />
+  <app-input
+    placeholder="Last Name"
+    formControlNameCust="lastName"
+    [formGroupCust]="editUserForm"
+  />
+  <app-input
+    placeholder="Email"
+    formControlNameCust="email"
+    [formGroupCust]="editUserForm"
+  />
+  <div class="footer space-y-5 flex flex-col">
+    <button
+      type="submit"
+      [disabled]="editUserForm.invalid"
+      class="disabled:bg-zinc-500 px-5 py-3 text-lg font-medium text-white bg-black rounded-sm"
+    >
+      Save changes
+    </button>
+  </div>
+</form>
+}@else {
+
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmitRegister()"
+  class="flex flex-col w-full py-5 space-y-4"
+>
+  <app-input
+    placeholder="First Name"
+    formControlNameCust="firstName"
+    [formGroupCust]="registerForm"
+  />
+  <app-input
+    placeholder="Last Name"
+    formControlNameCust="lastName"
+    [formGroupCust]="registerForm"
+  />
+  <app-input
+    placeholder="Email"
+    formControlNameCust="email"
+    [formGroupCust]="registerForm"
+  />
+  <app-input
+    placeholder="Password"
+    formControlNameCust="password"
+    type="password"
+    [formGroupCust]="registerForm"
+  />
+  <select
+    formControlName="role"
+    class="w-full rounded-sm input px-5 py-2.5 border-2 border-black/15 text-lg my-4"
+  >
+    <option [ngValue]="null">Choose a role</option>
+    @for(role of roles; track role){
+    <option [ngValue]="role">{{ role | titlecase }}</option>
+    }`
+  </select>
+  <div class="text-start space-y-2">
+    <label for="file">Add Profile Picture(optional)</label>
+    <input
+      class="text-lg font-medium"
+      hlmInput
+      type="file"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+  <div class="footer space-y-5 flex flex-col">
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid"
+      class="disabled:bg-zinc-500 px-5 py-3 text-lg font-medium text-white bg-black rounded-sm"
+    >
+      Register
+    </button>
+
+    <p>
+      Already a member?
+      <button class="font-medium" type="button">Log in</button>
+    </p>
+  </div>
+</form>
+}

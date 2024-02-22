@@ -1,0 +1,48 @@
+<div class="w-4/5 text-center mx-auto flex flex-col">
+  <h3 hlmDialogTitle class="text-3xl font-medium leading-none text-center">
+    Welcome back!
+  </h3>
+  <p hlmDialogDescription class="text-base text-center">
+    Log in to access your account, products and categories.
+  </p>
+</div>
+<div
+  class="w-full text-center bg-red-50 text-lg text-red-800 px-4 py-3 rounded-sm relative mt-4"
+  role="alert"
+  *ngIf="showAuthEror"
+>
+  <p class="text-base font-medium">{{ showAuthEror.error }}</p>
+  <span class="block text-sm">{{ showAuthEror.message }} </span>
+</div>
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmitLogin()"
+  class="flex flex-col w-full py-5 space-y-5"
+>
+  <div>
+    <app-input
+      placeholder="Email"
+      formControlNameCust="email"
+      [formGroupCust]="loginForm"
+    />
+  </div>
+  <div>
+    <app-input
+      placeholder="Password"
+      formControlNameCust="password"
+      type="password"
+      [formGroupCust]="loginForm"
+    />
+  </div>
+  <button
+    type="submit"
+    [disabled]="loginForm.invalid"
+    class="disabled:bg-zinc-500 px-5 py-3 text-lg font-medium text-white bg-black rounded-sm"
+  >
+    Log in
+  </button>
+</form>
+<p>
+  Don't have an account yet?
+  <button class="font-medium">Sign Up</button>
+</p>

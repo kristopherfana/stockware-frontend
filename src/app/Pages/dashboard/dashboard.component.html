@@ -1,0 +1,142 @@
+<div class="flex">
+  <div
+    class="fixed hidden lg:flex flex-col items-center justify-between w-1/5 h-screen border-r sidebar"
+  >
+    <div class="w-full">
+      <div class="flex w-full py-10 border-b px-14 logo-container">
+        <img src="assets/stock_ware_logo.png" class="w-auto h-8" alt="" />
+      </div>
+      <div
+        class="flex flex-col w-full py-6 px-14 nav-items hover:text-zinc-400"
+      >
+        @for(link of navLinks; track link.label){
+        <a
+          [routerLink]="link.url"
+          routerLinkActive="active"
+          class="block py-2 text-2xl font-medium rounded-sm nav-link hover:text-zinc-900"
+          aria-current="page"
+          >{{ link.label }}</a
+        >
+        }
+      </div>
+    </div>
+    <button
+      (click)="authService.logout()"
+      class="items-end block w-full text-2xl font-medium rounded-sm py-7 nav-link hover:text-zinc-900 px-14 text-start"
+      aria-current="page"
+    >
+      Log out
+    </button>
+  </div>
+  <div class="h-[120vh] lg:ml-[20%] w-full lg:py-9 lg:px-14 mx-auto px-6 pt-6">
+    <div class="flex justify-between pb-6 header">
+      <div class="welcome">
+        <h1 class="text-[2rem] leading-none font-semibold">
+          Welcome back, {{ getCurrentUser()?.firstName }}
+        </h1>
+        <span>Here's what has been happening at StockWare today.</span>
+      </div>
+      <div class="relative ml-3">
+        <div>
+          <a
+            routerLink="/profile"
+            class="relative flex items-center justify-center gap-3 text-lg font-medium border-l-2 ps-5"
+            id="user-menu-button"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <img
+              [src]="
+                getCurrentUser()?.image_url
+                  ? getCurrentUser()?.image_url
+                  : 'assets/images/placeholders/avatar_card.png'
+              "
+              alt=""
+              class="rounded-full w-7 h-7 object-cover"
+            />
+            {{ getCurrentUser()?.firstName }} {{ getCurrentUser()?.lastName }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex flex-col lg:flex-row justify-between pt-4 lg:pt-8 main gap-x-14 gap-y-6"
+    >
+      <div class="flex flex-col lg:w-3/4 gap-y-8">
+        <div
+          class="flex flex-col lg:flex-row lg:*:w-1/3 w-full stats-list gap-x-4 gap-y-4"
+        >
+          <a
+            routerLink="/products"
+            class="flex stats items-center px-10 py-4 gap-x-[0.6rem] bg-[#E6F5F9]"
+          >
+            <img src="assets/product.png" alt="" class="w-auto h-10" />
+            <div class="details">
+              <span class="text-[2rem] leading-none font-semibold block"
+                >{{ products.length }}
+              </span>
+              <span class="text-sm text-zinc-500">Total Products</span>
+            </div>
+          </a>
+          <a
+            routerLink="/users"
+            class="flex stats items-center px-10 py-4 gap-x-[0.6rem] bg-[#EFFCEF]"
+          >
+            <img src="assets/group.png" alt="" class="w-auto h-10" />
+            <div class="details">
+              <span class="text-[2rem] leading-none font-semibold block"
+                >{{ users.length }}
+              </span>
+              <span class="text-sm text-zinc-500">Total Users</span>
+            </div>
+          </a>
+          <a
+            routerLink="/categories"
+            class="flex stats items-center px-10 py-4 gap-x-[0.6rem] bg-green bg-[#EFF6FC]"
+          >
+            <img src="assets/category.png" alt="" class="w-auto h-10" />
+            <div class="details">
+              <span class="text-[2rem] leading-none font-semibold block"
+                >{{ categories.length }}
+              </span>
+              <span class="text-sm text-zinc-500">Total Categories</span>
+            </div>
+          </a>
+        </div>
+        <div class="flex flex-col graph gap-y-4">
+          <h3 class="text-lg font-medium">Insights - Categories & Products</h3>
+          <canvas class="canvas" id="canvas">
+            {{ chart }}
+          </canvas>
+        </div>
+      </div>
+      <div class="flex flex-col lg:w-1/4 highlight *:flex *:flex-col *:gap-y-4">
+        <div class="flex flex-col recent-products">
+          <h3 class="text-lg font-semibold">Recent Products added</h3>
+          <ul class="w-full space-y-4 text-lg">
+            @for(product of products; track product.id){
+            <li class="flex items-center gap-x-3">
+              <img
+                [src]="
+                  product.image_url
+                    ? product.image_url
+                    : 'assets/images/placeholders/product.png'
+                "
+                class="w-8 h-8 rounded-full"
+                alt=""
+              />
+              <span class="flex flex-1 font-medium">{{ product.name }} </span>
+              <span class="font-normal text-zinc-500">{{
+                product.created_at | date : "MMM d, y"
+              }}</span>
+            </li>
+            }@empty {
+            <div class="py-4">No Products Created</div>
+            }
+          </ul>
+        </div>
+        <div class="recent-categories"></div>
+      </div>
+    </div>
+  </div>
+</div>

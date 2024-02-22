@@ -1,0 +1,223 @@
+<nav class="sticky">
+  <div class="px-6 mx-auto max-w-screen">
+    <div class="relative flex items-center justify-between h-16">
+      <div
+        class="flex items-center justify-center md:items-stretch md:justify-start"
+      >
+        <div class="flex items-center flex-1 flex-shrink-0">
+          <img
+            class="w-auto h-8"
+            src="assets/stock_ware_logo.png"
+            alt="Your Company"
+          />
+        </div>
+      </div>
+      <!-- Links -->
+      <div class="hidden md:ml-6 md:block">
+        <div class="flex space-x-2 hover:text-zinc-400">
+          <!-- Current: "bg-gray-900 text-white", Default: "bg-gray-100 text-zinc-900" -->
+          @for(navLink of navLinks; track navLink.label){
+          <span></span>
+          @if(authService.currentUserSignal()?.role == navLink.role ||
+          !navLink.role){
+
+          <a
+            [routerLink]="navLink.url"
+            routerLinkActive="active"
+            class="px-3 py-2 text-xl font-medium rounded-sm nav-link decoration-2 hover:text-zinc-900"
+            aria-current="page"
+            >{{ navLink.label }}</a
+          >
+          } }
+        </div>
+      </div>
+      <div
+        class="absolute inset-y-0 right-0 items-center hidden pr-2 md:flex sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+      >
+        @if (this.authService.currentUserSignal() == null||undefined) {
+
+        <hlm-dialog
+          class="me-5"
+          [state]="loginState()"
+          #dialogs
+          *ngIf="this.authService.currentUserSignal() == null"
+        >
+          <button class="text-xl font-medium nav-link" brnDialogTrigger>
+            Login
+          </button>
+          <hlm-dialog-content
+            class="sm:max-w-[425px] lg:min-w-[375px] flex flex-col items-center text-center gap-0 px-8 py-12"
+            *brnDialogContent="let ctx"
+          >
+            <app-login class="w-full"></app-login>
+          </hlm-dialog-content>
+        </hlm-dialog>
+        <hlm-dialog
+          [state]="registerState()"
+          *ngIf="this.authService.currentUserSignal() == null"
+        >
+          <button class="text-xl font-medium nav-link" brnDialogTrigger>
+            Register
+          </button>
+          <hlm-dialog-content
+            class="sm:max-w-[425px] lg:min-w-[400px] flex flex-col items-center text-center gap-0 px-8 py-12"
+            *brnDialogContent="let ctx"
+          >
+            <app-register class="w-full"></app-register>
+          </hlm-dialog-content>
+        </hlm-dialog>
+        }@else{
+
+        <div class="relative ml-3">
+          <div>
+            <button
+              type="button"
+              class="relative flex items-center justify-center gap-3 text-lg font-medium border-l-2 ps-5"
+              id="user-menu-button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              [brnMenuTriggerFor]="menu"
+            >
+              <img
+                [src]="
+                  this.authService.currentUserSignal()?.image_url
+                    ? this.authService.currentUserSignal()?.image_url
+                    : 'assets/images/placeholders/avatar_card.png'
+                "
+                alt=""
+                class="rounded-full w-7 h-7 object-cover"
+              />
+              {{ authService.currentUserSignal()?.firstName }}
+              {{ authService.currentUserSignal()?.lastName }}
+            </button>
+            <ng-template #menu>
+              <hlm-menu class="w-56 text-base">
+                <hlm-menu-group>
+                  <a hlmMenuItem routerLink="/profile">
+                    <span>Profile</span>
+                  </a>
+                  <button hlmMenuItem (click)="logout()">
+                    <span>Logout</span>
+                  </button>
+                </hlm-menu-group>
+              </hlm-menu>
+            </ng-template>
+          </div>
+        </div>
+        }
+        <!-- Profile dropdown -->
+      </div>
+      <div class="inset-y-0 left-0 flex items-center md:hidden">
+        <!-- Mobile menu button-->
+        <hlm-sheet side="right">
+          <button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>
+            <svg
+              class="block w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+          <hlm-sheet-content *brnSheetContent="let ctx">
+            @if(authService.currentUserSignal()){
+
+            <hlm-sheet-header class="text-start">
+              <img
+                class="w-10 h-10 rounded-full object-cover"
+                [src]="
+                  authService.currentUserSignal()?.image_url
+                    ? authService.currentUserSignal()?.image_url
+                    : 'assets/placeholders/avatar_card.png'
+                "
+                alt=""
+              />
+              <p class="py-1 text-lg font-medium leading-6">
+                {{ authService.currentUserSignal()?.firstName }}
+                {{ authService.currentUserSignal()?.lastName }}<br /><span
+                  class="text-base font-normal text-zinc-500"
+                  >{{ authService.currentUserSignal()?.email }}</span
+                >
+              </p>
+            </hlm-sheet-header>
+            <brn-separator hlmSeparator class="my-2" />
+            }
+
+            <div class="flex flex-col hover:text-gray-300">
+              @if(authService.currentUserSignal()){
+
+              <a
+                (click)="ctx.close()"
+                routerLink="/profile"
+                routerLinkActive="text-gray-900"
+                class="py-2 text-2xl rounded-sm hover:text-zinc-900"
+                aria-current="page"
+                >Profile</a
+              >
+              <button
+                (click)="ctx.close(); authService.logout()"
+                routerLinkActive="text-gray-900"
+                class="py-2 text-2xl rounded-sm hover:text-zinc-900 text-start"
+                aria-current="page"
+              >
+                Logout
+              </button>
+              }@else {
+              <hlm-dialog
+                class="me-5"
+                [state]="loginState()"
+                #dialogs
+                *ngIf="this.authService.currentUserSignal() == null"
+              >
+                <button class="text-xl font-medium" brnDialogTrigger>
+                  Login
+                </button>
+                <hlm-dialog-content
+                  class="sm:max-w-[425px] lg:min-w-[375px] flex flex-col items-center text-center gap-0 px-8 py-12"
+                  *brnDialogContent="let ctx"
+                >
+                  <app-login class="w-full"></app-login>
+                </hlm-dialog-content>
+              </hlm-dialog>
+              <hlm-dialog
+                [state]="registerState()"
+                *ngIf="this.authService.currentUserSignal() == null"
+              >
+                <button class="text-xl font-medium" brnDialogTrigger>
+                  Register
+                </button>
+                <hlm-dialog-content
+                  class="sm:max-w-[425px] lg:min-w-[400px] flex flex-col items-center text-center gap-0 px-8 py-12"
+                  *brnDialogContent="let ctx"
+                >
+                  <app-register class="w-full"></app-register>
+                </hlm-dialog-content>
+              </hlm-dialog>
+              }
+              <brn-separator hlmSeparator class="my-2" />
+              @for(navLink of navLinks; track navLink.label){
+              @if(authService.currentUserSignal()?.role == navLink.role ||
+              !navLink.role){
+
+              <a
+                [routerLink]="navLink.url"
+                routerLinkActive="active"
+                class="px-3 py-2 text-xl font-medium rounded-sm decoration-2 hover:text-zinc-900"
+                aria-current="page"
+                >{{ navLink.label }}</a
+              >
+              } }
+            </div>
+          </hlm-sheet-content>
+        </hlm-sheet>
+      </div>
+    </div>
+  </div>
+</nav>

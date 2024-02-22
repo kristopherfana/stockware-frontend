@@ -1,0 +1,27 @@
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse 3s infinite;
+}
+.loader {
+  z-index: 1000;
+  position: fixed;
+  overflow: hidden;
+  backdrop-filter: blur(40px) saturate(1.2);
+  transition: all 0.7s ease-in-out;
+}
+
+.loader.slide-up {
+  transform: translateY(-100%);
+  backdrop-filter: blur(4px) saturate(1.2);
+}

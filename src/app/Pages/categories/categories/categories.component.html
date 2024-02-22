@@ -1,0 +1,72 @@
+<div class="flex flex-col py-20 mx-auto text-center header space-y-4" #parents>
+  <p class="mx-auto text-6xl font-bold leading-none tracking-tight lg:w-8/12">
+    Categories
+  </p>
+  <p class="text-base font-semibold leading-6 tracking-wider uppercase">
+    Home > Categories
+  </p>
+  <hlm-dialog
+    *ngIf="
+      this.authService.isAuthenticated() ||
+      this.authService.currentUserSignal()?.role == 'admin'
+    "
+  >
+    <button
+      class="text-xl font-medium bg-black text-white px-5 py-2 rounded-md"
+      brnDialogTrigger
+    >
+      Add a category
+    </button>
+    <hlm-dialog-content
+      class="sm:max-w-[425px] lg:min-w-[400px] flex flex-col items-center text-center gap-0 px-8 py-12"
+      *brnDialogContent="let ctx"
+    >
+      <app-categories-form class="w-full"></app-categories-form>
+    </hlm-dialog-content>
+  </hlm-dialog>
+</div>
+<brn-separator hlmSeparator class="px-8 my-3" />
+<h3
+  class="w-full py-6 text-2xl font-medium text-center"
+  *ngIf="categories.length > 0"
+>
+  Showing <span class="font-bold">{{ categories.length }} categories </span>
+</h3>
+<div
+  class="max-w-screen-xl px-2 mx-auto sm:px-6 lg:px-8 rounded-md"
+  [ngClass]="{
+    'flex ': categories.length < 1,
+    'grid gap-x-6 gap-y-4  md:grid-cols-3 lg:grid-cols-2  hover:bg-zinc-50':
+      categories.length > 0
+  }"
+  #parents
+>
+  @for(category of categories; track category.id){
+  <div class="overflow-hidden rounded-lg product-card hover:bg-white">
+    <img
+      [src]="
+        category.image_url
+          ? category.image_url
+          : 'assets/images/placeholders/category.png'
+      "
+      [alt]="category.name"
+      class="h-96 aspect-video cursor-pointer"
+      #images
+    />
+    <div class="flex justify-between p-3 border-t card-description">
+      <div class="flex flex-col left">
+        <span class="text-lg font-semibold">{{ category.name }}</span>
+      </div>
+    </div>
+  </div>
+  }@empty {
+  <div
+    class="w-full border-2 border-dashed border-zinc-200 rounded-md flex flex-1 min-h-[25rem] items-center justify-center"
+  >
+    <p class="text-xl text-center text-zinc-900">
+      There are no categories to show here.<br />
+      Do you want to add a new category?
+    </p>
+  </div>
+  }
+</div>

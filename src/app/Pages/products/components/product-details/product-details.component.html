@@ -1,0 +1,35 @@
+<div
+  class="flex gap-20 px-2 py-5 mx-auto max-w-screen-2xl sm:px-6 lg:px-24"
+  *ngIf="product"
+>
+  <div class="w-1/2 images">
+    <img
+      [src]="
+        product.image_url
+          ? product.image_url
+          : 'assets/images/placeholders/product.png'
+      "
+      class="h-auto rounded-[2.5rem] aspect-square object-scale-down"
+      alt=""
+    />
+  </div>
+  <div class="w-1/2 details">
+    <span class="text-xl font-normal text-zinc-500"
+      >Home > Products > {{ product.name | titlecase }}
+    </span>
+    <h1 class="w-4/6 text-[5.25rem] leading-[1.125] pb-7">
+      {{ product.name | titlecase }}
+    </h1>
+    <p class="text-[1.35rem] text-black/80">
+      {{ product.description }}
+    </p>
+    <p class="text-[1.75rem] font-semibold my-3">${{ product.price }}</p>
+    <p class="text-xl font-semibold my-3">
+      Cost:${{ product.cost }} | Profit:{{ product.profit }}%
+    </p>
+    <p>Created by: {{ product.createdBy?.email }}</p>
+    <p>Category : {{ product.category.name }}</p>
+    <br />
+    <brn-separator hlmSeparator class="my-5" />
+  </div>
+</div>

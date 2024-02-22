@@ -1,0 +1,38 @@
+<div class="w-4/5 text-center mx-auto flex flex-col">
+  <img
+    src="assets/stock_ware_logo.png"
+    class="w-auto h-10 mb-5 object-scale-down"
+    alt=""
+  />
+  <h3 class="text-3xl font-medium leading-none">Create a new category</h3>
+  <p class="text-base text-center">Enter the category's details</p>
+</div>
+<form
+  [formGroup]="createCategoryForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col w-full py-5 space-y-4"
+>
+  <app-input
+    placeholder="Name"
+    formControlNameCust="name"
+    [formGroupCust]="createCategoryForm"
+  />
+  <div class="text-start space-y-2">
+    <label for="file">Add Image(optional)</label>
+    <input
+      class="text-lg font-medium"
+      hlmInput
+      type="file"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+  <div class="footer space-y-5 flex flex-col">
+    <button
+      type="submit"
+      [disabled]="createCategoryForm.invalid"
+      class="disabled:bg-zinc-500 px-5 py-3 text-lg font-medium text-white bg-black rounded-sm"
+    >
+      Save
+    </button>
+  </div>
+</form>

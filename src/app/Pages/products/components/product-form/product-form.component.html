@@ -1,0 +1,116 @@
+<div
+  class="flex lg:flex-row flex-col gap-20 py-5 mx-auto max-w-screen-2xl px-8 lg:px-24"
+>
+  <form
+    class="flex lg:flex-row flex-col lg:gap-20 gap-10"
+    [formGroup]="createProductForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="lg:w-1/2 images">
+      <div
+        class="flex items-center justify-center rounded-md bg-zinc-50 image-container"
+      >
+        <img
+          [src]="imageUrl ? imageUrl : 'assets/product.png'"
+          class="object-scale-down p-20 scale-50 opacity-50 aspect-square"
+          alt=""
+        />
+        <input
+          class="absolute z-50 hidden text-lg font-medium bg-white border-2 border-white w-80"
+          hlmInput
+          type="file"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+    </div>
+    <div class="lg:w-1/2 details">
+      <span class="text-xl font-normal text-zinc-500"
+        >Home > Products > Create</span
+      >
+      <textarea
+        class="max-w-[100%] text-[5.25rem] leading-[1.125] pb-7 placeholder:text-zinc-400 font-semibold rounded-md px-2"
+        placeholder="Enter the product name"
+        rows="2"
+        spellcheck="false"
+        formControlName="name"
+      ></textarea>
+      <textarea
+        class="text-[1.35rem] text-black/80 w-full"
+        rows="6"
+        formControlName="description"
+        placeholder="Add a description text..."
+        spellcheck="false"
+      ></textarea>
+      <select
+        formControlName="categoryId"
+        class="w-full rounded-sm input px-5 py-2.5 border-2 border-black/15 text-lg my-4"
+      >
+        <option [ngValue]="null">Choose a category</option>
+        @for (category of categories; track category.id) {
+
+        <option [ngValue]="category.id">
+          {{ category.name }}
+        </option>
+        }
+      </select>
+      <app-input
+        formControlNameCust="quantity"
+        [formGroupCust]="createProductForm"
+        type="text"
+        placeholder="Quantity"
+      ></app-input>
+      <div class="text-[1.75rem] font-semibold my-3">
+        <label
+          for="price"
+          class="block text-lg font-medium leading-6 text-gray-900"
+          >Price</label
+        >
+        <div class="relative mt-2 rounded-sm w-1/2">
+          <div
+            class="pointer-events-none absolute inset-y-0 left-0 flex items-center"
+          >
+            <span>$</span>
+          </div>
+          <input
+            type="text"
+            name="price"
+            id="price"
+            formControlName="price"
+            class="block w-full rounded-md border-0 pl-6 pr-20 placeholder:text-gray-400"
+            placeholder="0.00"
+          />
+        </div>
+      </div>
+      <div class="text-[1.75rem] font-semibold my-3">
+        <label
+          for="cost"
+          class="block text-lg font-medium leading-6 text-gray-900"
+          >Cost</label
+        >
+        <div class="relative mt-2 rounded-sm w-1/2">
+          <div
+            class="pointer-events-none absolute inset-y-0 left-0 flex items-center"
+          >
+            <span>$</span>
+          </div>
+          <input
+            type="text"
+            name="cost"
+            id="cost"
+            formControlName="cost"
+            class="block w-full rounded-md border-0 pl-6 pr-20 placeholder:text-gray-400"
+            placeholder="0.00"
+          />
+        </div>
+      </div>
+      <button
+        class="px-12 py-2 mb-4 text-2xl font-normal text-white bg-black rounded-md me-5 disabled:bg-zinc-500"
+        type="submit"
+        [disabled]="createProductForm.invalid"
+      >
+        Save changes
+      </button>
+      <brn-separator hlmSeparator class="my-5" />
+    </div>
+  </form>
+</div>

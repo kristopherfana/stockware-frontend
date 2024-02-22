@@ -1,0 +1,23 @@
+.image-container {
+  position: relative;
+}
+.image-container::after {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 100%;
+  border-radius: inherit;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  display: none;
+}
+.image-container:hover::after {
+  display: block;
+}
+.image-container:hover {
+  input {
+    display: block;
+  }
+}

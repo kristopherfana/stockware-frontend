@@ -1,0 +1,143 @@
+<div class="flex flex-col items-center mx-5 lg:mx-20">
+  <div class="flex flex-col items-center text-base text-center header">
+    <img
+      [src]="
+        getCurrentUser()?.image_url
+          ? getCurrentUser()?.image_url
+          : 'assets/images/placeholders/avatar_card.png'
+      "
+      alt=""
+      class="object-cover w-40 h-40 rounded-full"
+    />
+    <p class="text-4xl font-semibold">
+      {{ getCurrentUser()?.firstName }} {{ getCurrentUser()?.lastName }}
+    </p>
+    <p class="font-semibold">
+      @if(!getCurrentUser()?.products){ No products created }@else{
+      {{ getCurrentUser()?.products?.length }} products created }
+    </p>
+    <hlm-dialog class="me-5">
+      <button class="font-medium nav-link" brnDialogTrigger>
+        Edit Profile
+      </button>
+      <hlm-dialog-content
+        class="sm:max-w-[425px] lg:min-w-[375px] flex flex-col items-center text-center gap-0 px-8 py-12"
+        *brnDialogContent="let ctx"
+      >
+        <app-register class="w-full" [edit]="true"></app-register>
+      </hlm-dialog-content>
+    </hlm-dialog>
+    <p class="text-zinc-500">
+      Joined {{ getCurrentUser()?.created_at | date : "MMMM d, y" }}
+    </p>
+    <p class="font-medium">{{ getCurrentUser()?.role | titlecase }}</p>
+  </div>
+  <brn-separator hlmSeparator class="my-5" />
+  <div brnTabs="products" class="flex flex-col items-center w-full">
+    <hlm-tabs-list
+      class="grid lg:w-1/4 grid-cols-2 text-base *:h-auto m=b-4"
+      aria-label="tabs example"
+    >
+      <button hlmTabsTrigger="products">Products</button>
+      <button hlmTabsTrigger="categories">Categories</button>
+    </hlm-tabs-list>
+    <div hlmTabsContent="products" class="w-full">
+      <div
+        [ngClass]="
+          !getAllProducts() ||
+          (getAllProducts() && getAllProducts()?.length == 0)
+            ? 'flex'
+            : 'grid gap-x-6 gap-y-4  md:grid-cols-3 lg:grid-cols-4 mx-4 hover:bg-zinc-50 rounded-md'
+        "
+        #parents
+      >
+        @for(Product of authService.currentUserSignal()?.products; track
+        Product.name){
+        <a class="overflow-hidden rounded-lg product-card hover:bg-white">
+          <img
+            [routerLink]="['/products', Product.id]"
+            [src]="
+              Product.image_url
+                ? Product.image_url
+                : 'assets/images/placeholders/product.png'
+            "
+            alt="Product-picture"
+            class="h-auto cursor-pointer object-scale-down aspect-square"
+            #images
+          />
+          <div class="flex justify-between p-3 border-t card-description">
+            <div class="flex flex-col left">
+              <span class="text-lg font-semibold">{{ Product.name }}</span>
+              <span class="text-sm leading-3 text-zinc-400">{{
+                Product.name
+              }}</span>
+              <span class="text-base font-medium">${{ Product.price }}</span>
+              <span class="text-base font-medium"
+                >Quantity: {{ Product.quantity }}</span
+              >
+            </div>
+          </div>
+        </a>
+        }@empty {
+        <a
+          class="w-full border-2 border-dashed border-zinc-200 rounded-md flex flex-1 min-h-[25rem] items-center justify-center"
+          routerLink="/products/create"
+        >
+          <p class="text-xl text-center text-zinc-900">
+            There's no Product to show here.<br />
+            Do you want to Add a new product?
+          </p>
+        </a>
+        }
+      </div>
+    </div>
+    <div hlmTabsContent="categories" class="w-full">
+      <div
+        [ngClass]="{
+          flex: !categories || (categories && categories.length < 1),
+          'grid gap-x-6 gap-y-4  md:grid-cols-3 lg:grid-cols-2  hover:bg-zinc-50 rounded-md max-w-screen-xl px-2 mx-auto sm:px-6 lg:px-8':
+            categories && categories.length > 0
+        }"
+        #parents
+      >
+        @for(category of authService.currentUserSignal()?.categories; track
+        category.id){
+        <a
+          class="overflow-hidden rounded-lg product-card hover:bg-white"
+          [routerLink]="['/categories']"
+        >
+          <img
+            [src]="
+              category.image_url
+                ? category.image_url
+                : 'assets/images/placeholders/category.png'
+            "
+            alt="Product-picture"
+            class="h-96 aspect-video object-scale-down"
+            #images
+          />
+          <div class="flex justify-between p-3 border-t card-description">
+            <div class="flex flex-col left">
+              <span class="text-lg font-semibold">{{ category.name }}</span>
+            </div>
+          </div>
+        </a>
+        }@empty {
+        <div
+          class="w-full border-2 border-dashed border-zinc-200 rounded-md flex flex-1 min-h-[25rem] items-center justify-center"
+        >
+          <p class="text-xl text-center text-zinc-900">
+            There are no categories to show here.<br />
+            Do you want to
+            <a
+              class="font-medium underline underline-offset-2 text-zinc-900"
+              routerLink="/categories"
+              >Add a New Category?</a
+            >
+          </p>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
