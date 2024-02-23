@@ -40,6 +40,10 @@ export class CategoriesFormComponent {
     if (this.image) {
       formData.append('file', this.image);
     }
-    this.categoriesService.createCategory(formData).subscribe()
+    this.categoriesService.createCategory(formData).subscribe({
+      next: () => {
+        window.location.reload();
+      }
+    })
   }
 }
