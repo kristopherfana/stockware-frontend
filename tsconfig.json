@@ -18,67 +18,62 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@spartan-ng/ui-accordion-helm": [
-        ".\\src/app/shared/spartan/ui-accordion-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-accordion-helm/src/index.ts"
       ],
       "@spartan-ng/ui-alert-helm": [
-        ".\\src/app/shared/spartan/ui-alert-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-alert-helm/src/index.ts"
       ],
       "@spartan-ng/ui-alertdialog-helm": [
-        ".\\src/app/shared/spartan/ui-alertdialog-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-alertdialog-helm/src/index.ts"
       ],
       "@spartan-ng/ui-button-helm": [
-        ".\\src/app/shared/spartan/ui-button-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-button-helm/src/index.ts"
       ],
       "@spartan-ng/ui-dialog-helm": [
-        ".\\src/app/shared/spartan/ui-dialog-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-dialog-helm/src/index.ts"
       ],
       "@spartan-ng/ui-hovercard-helm": [
-        ".\\src/app/shared/spartan/ui-hovercard-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-hovercard-helm/src/index.ts"
       ],
       "@spartan-ng/ui-icon-helm": [
-        ".\\src/app/shared/spartan/ui-icon-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-icon-helm/src/index.ts"
       ],
       "@spartan-ng/ui-menu-helm": [
-        ".\\src/app/shared/spartan/ui-menu-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-menu-helm/src/index.ts"
       ],
       "@spartan-ng/ui-popover-helm": [
-        ".\\src/app/shared/spartan/ui-popover-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-popover-helm/src/index.ts"
       ],
       "@spartan-ng/ui-progress-helm": [
-        ".\\src/app/shared/spartan/ui-progress-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-progress-helm/src/index.ts"
       ],
       "@spartan-ng/ui-separator-helm": [
-        ".\\src/app/shared/spartan/ui-separator-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-separator-helm/src/index.ts"
       ],
       "@spartan-ng/ui-sheet-helm": [
-        ".\\src/app/shared/spartan/ui-sheet-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-sheet-helm/src/index.ts"
       ],
       "@spartan-ng/ui-skeleton-helm": [
-        ".\\src/app/shared/spartan/ui-skeleton-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-skeleton-helm/src/index.ts"
       ],
       "@spartan-ng/ui-spinner-helm": [
-        ".\\src/app/shared/spartan/ui-spinner-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-spinner-helm/src/index.ts"
       ],
       "@spartan-ng/ui-tabs-helm": [
-        ".\\src/app/shared/spartan/ui-tabs-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-tabs-helm/src/index.ts"
       ],
       "@spartan-ng/ui-tooltip-helm": [
-        ".\\src/app/shared/spartan/ui-tooltip-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-tooltip-helm/src/index.ts"
       ],
       "@spartan-ng/ui-input-helm": [
-        ".\\src/app/shared/spartan/ui-input-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-input-helm/src/index.ts"
       ],
-      "auth": [
-        "./dist/auth"
-      ],
+      "auth": ["./dist/auth"],
       "@spartan-ng/ui-table-helm": [
-        ".\\src/app/shared/spartan/ui-table-helm/src/index.ts"
+        "./src/app/shared/spartan/ui-table-helm/src/index.ts"
       ]
     }
   },

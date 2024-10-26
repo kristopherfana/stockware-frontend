@@ -68,11 +68,11 @@ export class ProductsComponent implements AfterViewInit, OnInit {
   }
 
   toggleDialogByName(state: "open" | "closed", id?: number) {
-    this.dialogs.toArray().forEach((dialog) => {
-      if (id == dialog?._contentTemplate?.elementRef.nativeElement.parentNode.id) {
-        dialog.newState = state;
-      }
-    })
+    // this.dialogs.toArray().forEach((dialog) => {
+    //   if (id == dialog?._contentTemplate?.elementRef.nativeElement.parentNode.id) {
+    //     dialog.newState = state;
+    //   }
+    // })
   }
 
   ngOnInit() {

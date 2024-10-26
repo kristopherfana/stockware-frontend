@@ -60,11 +60,11 @@ export class UsersComponent implements OnInit {
   }
 
   toggleDialogByName(name: string, state: "open" | "closed") {
-    this.dialogs.toArray().forEach((dialog) => {
-      if (name == dialog?._contentTemplate?.elementRef.nativeElement.parentNode.id) {
-        dialog.newState = state;
-      }
-    })
+    // this.dialogs.toArray().forEach((dialog) => {
+    //   if (name == dialog?._contentTemplate?.elementRef.nativeElement.parentNode.id) {
+    //     dialog.newState = state;
+    //   }
+    // })
   }
   private checkImageLoadStatus(): void {
     this.imageRef.toArray().forEach((image) => {
