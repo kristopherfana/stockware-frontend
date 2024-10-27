@@ -7,6 +7,7 @@ import { LoginDto } from '../dto/login.dto';
 import { Router } from "@angular/router";
 import { ToastService } from "../../components/toaster/service/toast.service";
 import { UserDto } from '../dto/user.dto';
+import { environment } from "../../../../../environments/environment";
 import { tap } from "rxjs";
 
 @Injectable({
@@ -14,7 +15,7 @@ import { tap } from "rxjs";
 })
 export class AuthService {
 
-  API_URL = 'http://localhost:3000/auth'
+  API_URL = `${environment.apiUrl}/auth`
   httpClient = inject(HttpClient);
   currentUserSignal = signal<UserDto | undefined | null>(undefined);
   router = inject(Router);

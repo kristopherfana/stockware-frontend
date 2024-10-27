@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from '../model/products.dto';
 import { Router } from '@angular/router';
 import { ToastService } from '../../shared/components/toaster/service/toast.service';
+import { environment } from '../../../../environments/environment';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -12,7 +13,7 @@ import { tap } from 'rxjs';
 export class ProductsService {
   httpClient = inject(HttpClient);
   router = inject(Router);
-  API_URL = 'http://localhost:3000/products';
+  API_URL = `${environment.apiUrl}/products`;
   toastService = inject(ToastService);
 
   getAllProducts() {

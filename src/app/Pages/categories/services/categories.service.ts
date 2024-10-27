@@ -4,6 +4,7 @@ import { Category } from '../model/categories.dto';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastService } from '../../shared/components/toaster/service/toast.service';
+import { environment } from '../../../../environments/environment';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -11,7 +12,7 @@ import { tap } from 'rxjs';
 })
 export class CategoriesService {
   httpClient = inject(HttpClient);
-  API_URL = 'http://localhost:3000/categories';
+  API_URL = `${environment.apiUrl}/categories`;
   toastService = inject(ToastService);
   router = inject(Router);
 

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastService } from '../../shared/components/toaster/service/toast.service';
 import { UserDto } from '../../shared/auth/dto/user.dto';
+import { environment } from '../../../../environments/environment';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -12,7 +13,7 @@ import { tap } from 'rxjs';
 })
 export class UsersService {
   httpClient = inject(HttpClient);
-  API_URL = 'http://localhost:3000/users'
+  API_URL = `${environment.apiUrl}/users`
   toastService = inject(ToastService);
   authService = inject(AuthService);
   router = inject(Router);
